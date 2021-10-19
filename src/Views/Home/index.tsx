@@ -1,11 +1,11 @@
 import { observer, useLocalObservable } from 'mobx-react-lite';
 import React from 'react';
-import Header from '../Components/Header';
+import Header from '../../Components/Header/index';
 import './index.css';
-import CardMovie from '../Components/CardMovie';
+import CardMovie from '../../Components/CardMovie/index';
 import { Store } from './store';
-import CustomPagination from '../Components/Pagination';
-import ContainerLoading from '../Components/loading';
+import CustomPagination from '../../Components/Pagination';
+import ContainerLoading from '../../Components/loading';
 
 const HomePage: React.FC = () => {
     const store = useLocalObservable(() => new Store());

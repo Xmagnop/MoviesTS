@@ -6,7 +6,7 @@ import { Pagination } from '@mui/material';
 interface Iprops {
     pages_total: number;
     page_current: number;
-    setPage(page: number): void;
+    setPage: (page: number) => void;
 }
 
 const CustomPagination: React.FC<Iprops> = (props) =>{

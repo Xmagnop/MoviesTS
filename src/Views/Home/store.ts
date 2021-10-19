@@ -1,5 +1,5 @@
-import  * as types from '../Services/types';
-import api from '../Services/api';
+import  * as types from '../../Services/types';
+import api from '../../Services/api';
 import { makeAutoObservable } from 'mobx';
 
 export class Store {
