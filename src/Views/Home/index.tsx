@@ -5,7 +5,7 @@ import './index.css';
 import CardMovie from '../../Components/CardMovie/index';
 import { Store } from './store';
 import CustomPagination from '../../Components/Pagination';
-import ContainerLoading from '../../Components/loading';
+import ContainerLoading from '../../Components/Loading/loading';
 
 const HomePage: React.FC = () => {
     const store = useLocalObservable(() => new Store());

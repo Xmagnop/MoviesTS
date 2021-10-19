@@ -3,7 +3,7 @@ import React from 'react';
 import { useParams } from 'react-router';
 import * as types from '../../Services/types';
 import { Store } from './store';
-import ContainerLoading from '../../Components/loading';
+import ContainerLoading from '../../Components/Loading/loading';
 import Header from '../../Components/Header/index';
 import './index.css'
 
