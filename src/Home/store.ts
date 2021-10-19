@@ -25,6 +25,17 @@ export class Store {
         this.total_pages = totalpages;
     }
 
+    public setTitleFilter(title: string){
+        this.title_filter = title;
+        this.current_page = 1;
+        this.fetch();
+    }
+
+    public setCurrentPage(page: number){
+        this.current_page = page;
+        this.fetch();
+    }
+
     public fetch = async() =>{
         let data: types.MoviesList;
         if(this.loading){
@@ -45,16 +56,5 @@ export class Store {
         } finally {
             this.setLoading(false);
         }
-    }
-
-    public setTitleFilter(title: string){
-        this.title_filter = title;
-        this.current_page = 1;
-        this.fetch();
-    }
-
-    public setCurrentPage(page: number){
-        this.current_page = page;
-        this.fetch();
     }
 }
