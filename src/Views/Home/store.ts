@@ -1,6 +1,7 @@
 import  * as types from '../../Services/types';
 import api from '../../Services/api';
 import { makeAutoObservable } from 'mobx';
+import { LoaderShelf } from '@startapp/mobx-utils';
 
 export class Store {
     constructor(){
@@ -8,17 +9,14 @@ export class Store {
     }
 
     public movies: types.Movie[] = [];
-    public loading: boolean = false;
+    public loading = new LoaderShelf();
     public total_pages: number = 0;
     public current_page: number = 1;
     public title_filter: string = "";
+    public errorMessage: string = "";
 
     public setMovies(movies: types.Movie[]){
         this.movies = movies;
-    }
-
-    public setLoading(loading: boolean){
-        this.loading = loading;
     }
 
     public setTotalPages(totalpages: number){
@@ -36,12 +34,15 @@ export class Store {
         this.fetch();
     }
 
+    public setErrorMessage(text: string){
+        this.errorMessage = text;
+    }
+
     public fetch = async() =>{
         let data: types.MoviesList;
-        if(this.loading){
-            return;
-        }
-        this.setLoading(true)
+        
+        this.loading.tryStart();
+
         try{
             if(this.title_filter === ""){
                 data = await api.getMovies(this.current_page);
@@ -52,9 +53,10 @@ export class Store {
             this.setTotalPages(data.total_pages);
         } catch(error){
             alert("erro na requisição");
+            this.setErrorMessage(JSON.stringify(error));
             console.log(error);
         } finally {
-            this.setLoading(false);
+            this.loading.end();
         }
     }
 }
