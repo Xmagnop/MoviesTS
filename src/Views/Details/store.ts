@@ -1,49 +1,44 @@
-import * as types from '../../Services/types';
-import api from '../../Services/api';
-import { makeAutoObservable } from 'mobx';
-import { LoaderShelf,  /* ModelShelf */ } from '@startapp/mobx-utils';
+import * as types from "../../Services/types";
+import api from "../../Services/api";
+import { makeAutoObservable } from "mobx";
+import { ModelShelf } from "@startapp/mobx-utils";
 
 export class Store {
-    constructor() {
-        makeAutoObservable(this);
-    }
-    public movie: types.MovieDetails | null = null;
-    public loading = new LoaderShelf();
-    public id: string = "";
-    public errorMessage: string = "";
-    // public request = new ModelShelf(this.id, api.getMovieDetails);
+	public movie: types.MovieDetails | null = null;
+	public errorMessage = "";
+	public modelShelf: ModelShelf<types.MovieDetails> | null = null;
 
-    public setMovie(movie: types.MovieDetails) {
-        this.movie = movie;
-    }
+	constructor() {
+		makeAutoObservable(this);
+	}
 
-    public setId(id: string){
-        this.id = id;
-    }
+	public setErrorMessage = (text: string) => {
+		this.errorMessage = text;
+	};
 
-    public setErrorMessage(text: string){
-        this.errorMessage = text;
-    }
+	public fetch = (id?: string) => {
+		if (id) {
+			if (!this.modelShelf) {
+				this.modelShelf = new ModelShelf(id, api.getMovieDetails, { onModelFetchError: this.setErrorMessage });
+			} else {
+				this.modelShelf.fetchModel();
+			}
+		}
+	};
+	// public fetch = async (id: string) => {
 
-    // public fetch = async () => {
-    //     this.request.fetchModel();
-    //     this.movie = this.request._getModel();
-    // }
+	//     this.loading.tryStart();
 
-    public fetch = async (id: string) => {
-        
-        this.loading.tryStart();
-
-        try {
-            const data = await api.getMovieDetails(id);
-            this.setMovie(data);
-            console.log(this.movie);
-        } catch (error) {
-            alert("erro na requisição");
-            this.setErrorMessage(JSON.stringify(error));
-            console.log(error);
-        } finally {
-            this.loading.end();
-        }
-    }
+	//     try {
+	//         const data = await api.getMovieDetails(id);
+	//         this.setMovie(data);
+	//         console.log(this.movie);
+	//     } catch (error) {
+	//         alert("erro na requisição");
+	//         this.setErrorMessage(JSON.stringify(error));
+	//         console.log(error);
+	//     } finally {
+	//         this.loading.end();
+	//     }
+	// }
 }

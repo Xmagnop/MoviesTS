@@ -16,7 +16,7 @@ export interface Movie {
 }
 
 export interface MoviesList {
-    page: number;
+	page: number;
 	results: Movie[];
 	total_pages: number;
 	total_results: number;

@@ -6,26 +6,26 @@ import { observer } from "mobx-react-lite";
 
 // MARK: Implementation
 export interface ILoadableProps {
-    isLoading: boolean;
-    loadingComponent: React.ReactElement;
+	isLoading: boolean;
+	loadingComponent: React.ReactElement;
 }
 
 const Loadable: React.FC<ILoadableProps> = (props) => {
-    const {
-        children,
-        isLoading,
-        loadingComponent,
-    } = props;
+	const {
+		children,
+		isLoading,
+		loadingComponent,
+	} = props;
 
-    return (
-        isLoading
-            ? loadingComponent
-            : (
-                <>
-                    {children}
-                </>
-            )
-    );
+	return (
+		isLoading
+			? loadingComponent
+			: (
+				<>
+					{children}
+				</>
+			)
+	);
 };
 
 export default observer(Loadable);

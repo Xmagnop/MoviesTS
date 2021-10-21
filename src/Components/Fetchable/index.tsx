@@ -9,31 +9,31 @@ import Loadable, { ILoadableProps } from "../Loading/loadable";
 
 // MARK: Implementation
 interface IProps {
-    loadableProps: ILoadableProps;
-    hasError?: boolean;
-    errorComponent?: React.ReactNode;
+	loadableProps: ILoadableProps;
+	hasError?: boolean;
+	errorComponent?: React.ReactNode;
 }
 
 const Fetchable: React.FC<IProps> = (props) => {
-    const {
-        children,
-        errorComponent,
-        hasError,
-        loadableProps,
-    } = props;
+	const {
+		children,
+		errorComponent,
+		hasError,
+		loadableProps,
+	} = props;
 
-    return (
-        <Loadable
-            isLoading={loadableProps.isLoading}
-            loadingComponent={loadableProps.loadingComponent}
-        >
-            {(hasError) ? (
-                errorComponent
-            ) : (
-                children
-            )}
-        </Loadable>
-    );
+	return (
+		<Loadable
+			isLoading={loadableProps.isLoading}
+			loadingComponent={loadableProps.loadingComponent}
+		>
+			{(hasError) ? (
+				errorComponent
+			) : (
+				children
+			)}
+		</Loadable>
+	);
 };
 
 export default observer(Fetchable);
