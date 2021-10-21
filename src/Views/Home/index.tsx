@@ -20,7 +20,7 @@ const HomePage: React.FC = () => {
 	);
 
 	const propsLoader: ILoadableProps = {
-		isLoading: store.loading._loading,
+		isLoading: store.loading.isLoading,
 		loadingComponent: <ContainerLoading />,
 	};
 
