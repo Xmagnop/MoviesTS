@@ -1845,9 +1845,9 @@
     "@sinonjs/commons" "^1.7.0"
 
 "@startapp/mobx-utils@^1.1.392138517":
-  version "1.1.392138517"
-  resolved "https://npm.startapp.one/@startapp%2fmobx-utils/-/mobx-utils-1.1.392138517.tgz#e017ee4db5c3ff49cbb4561362dc308e1998ad31"
-  integrity sha512-m/4QV4BbHykT5de9GUaQEV4kRWfrCbYmkewpEA7WAnxg2iJpPD/CzrKgGAOvsDHJw+NEzrbbYgxgT96M9DG/0w==
+  version "1.1.392960339"
+  resolved "https://npm.startapp.one/@startapp%2fmobx-utils/-/mobx-utils-1.1.392960339.tgz#847e2323ebe9b08b69075b5d224bfcf3ebb07606"
+  integrity sha512-FY2Tjci/1F7ZODtmiBquXRsD2eBQuVcnSrBAXSB7sVUNmuNlYDJOtjKVxnK61Qkvb0jL9NeoNtvn1jl9hTUDFw==
   dependencies:
     mobx "^6.1.8"
     tslib "^2.2.0"

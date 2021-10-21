@@ -25,8 +25,7 @@ export class Store {
 
 	public setTitleFilter(title: string){
 		this.title_filter = title;
-		this.current_page = 1;
-		this.fetch();
+		this.setCurrentPage(1);
 	}
 
 	public setCurrentPage(page: number){
