@@ -15,7 +15,7 @@ const HomePage: React.FC = () => {
 	React.useEffect(
 		() => {
 			store.getData.fetchPage(1);
-			store.setTotalPages();
+			// store.setTotalPages();
 		},
 		[store],
 	);
@@ -37,7 +37,7 @@ const HomePage: React.FC = () => {
 								<CardMovie movie={movie} key={index} />
 							))
 						}
-						<CustomPagination pages_total={store.total_pages} page_current={store.getData.page} setPage={(page: number) => store.handleChangePage(page)} />
+						<CustomPagination pages_total={store.total_pages} page_current={store.getData.page} setPage={(page: number) => store.getData.fetchPage(page)} />
 					</div>
 				</Fetchable>
 			</div>
