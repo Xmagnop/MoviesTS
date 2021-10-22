@@ -31,8 +31,7 @@ const HomePage: React.FC = () => {
 				<Fetchable loadableProps={propsLoader} errorComponent={<h1>{store.errorMessage}</h1>}>
 					<div className="list-container">
 						{
-							(store.getData.items)
-							&& store.getData.items.map((movie, index) => (
+							store.getData.items.map((movie, index) => (
 								<CardMovie movie={movie} key={index} />
 							))
 						}
