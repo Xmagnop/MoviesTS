@@ -22,7 +22,7 @@ export interface MoviesList {
 	total_results: number;
 }
 
-interface genre{
+export interface genre{
 	id: number;
 	name: string;
 }
