@@ -15,7 +15,6 @@ const HomePage: React.FC = () => {
 	React.useEffect(
 		() => {
 			store.getData.fetchPage(1);
-			// store.setTotalPages();
 		},
 		[store],
 	);
