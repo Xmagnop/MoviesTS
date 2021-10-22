@@ -1,60 +1,64 @@
-import  * as types from "../../Services/types";
+import * as types from "../../Services/types";
 import api from "../../Services/api";
 import { makeAutoObservable } from "mobx";
-import { LoaderShelf } from "@startapp/mobx-utils";
+import { PaginatedListShelf } from "@startapp/mobx-utils";
 
 export class Store {
-	constructor(){
+	constructor() {
 		makeAutoObservable(this);
 	}
 
-	public movies: types.Movie[] = [];
-	public loading = new LoaderShelf();
+	public getData: PaginatedListShelf<types.Movie> = new PaginatedListShelf(api.getMovies);
 	public total_pages = 0;
-	public current_page = 1;
 	public title_filter = "";
 	public errorMessage = "";
 
-	public setMovies(movies: types.Movie[]){
-		this.movies = movies;
+	public setTotalPages = async (page?: number) => {
+		if (page) {
+			this.total_pages = page;
+		} else {
+			this.total_pages = await api.getTotalPages();
+		}
+	};
+
+	public setItems(items: types.Movie[]) {
+		this.getData.items = items;
 	}
 
-	public setTotalPages(totalpages: number){
-		this.total_pages = totalpages;
-	}
-
-	public setTitleFilter(title: string){
+	public setTitleFilter(title: string) {
 		this.title_filter = title;
-		this.setCurrentPage(1);
+		this.doFilter(1);
 	}
 
-	public setCurrentPage(page: number){
-		this.current_page = page;
-		this.fetch();
+	public handleChangePage(page: number){
+		if(this.title_filter === ""){
+			this.getData.fetchPage(page);
+		}else {
+			this.getData.page = page;
+			this.doFilter(page);
+		}
 	}
 
-	public setErrorMessage(text: string){
+	public doFilter = async(page: number) => {
+		try {
+			if (this.title_filter === "") {
+				this.getData.fetchPage(1);
+			} else {
+				this.getData.loader.tryStart();
+				const data = await api.getFilteredMovies(this.title_filter, page);
+				this.setItems(data.results);
+				this.setTotalPages(data.total_pages);
+				this.getData.page = page;
+			}
+		} catch (error) {
+			this.setErrorMessage(JSON.stringify(error));
+		} finally {
+			this.getData.loader.end();
+		}
+	};
+
+	public setErrorMessage(text: string) {
 		this.errorMessage = text;
 	}
 
-	public fetch = async() =>{
-		let data: types.MoviesList;
-
-		this.loading.tryStart();
-
-		try{
-			if(this.title_filter === ""){
-				data = await api.getMovies(this.current_page);
-			}else {
-				data = await api.getFilteredMovies(this.title_filter, this.current_page);
-			}
-			this.setMovies(data.results);
-			this.setTotalPages(data.total_pages);
-		} catch(error){
-			alert("erro na requisição");
-			this.setErrorMessage(JSON.stringify(error));
-		} finally {
-			this.loading.end();
-		}
-	};
 }

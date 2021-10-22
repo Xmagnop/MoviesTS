@@ -14,13 +14,14 @@ const HomePage: React.FC = () => {
 
 	React.useEffect(
 		() => {
-			store.fetch();
+			store.getData.fetchPage(1);
+			store.setTotalPages();
 		},
 		[store],
 	);
 
 	const propsLoader: ILoadableProps = {
-		isLoading: store.loading.isLoading,
+		isLoading: store.getData.loader.isLoading,
 		loadingComponent: <ContainerLoading />,
 	};
 
@@ -30,10 +31,13 @@ const HomePage: React.FC = () => {
 				<Header setFilterTitle={(title: string) => store.setTitleFilter(title)} />
 				<Fetchable loadableProps={propsLoader} errorComponent={<h1>{store.errorMessage}</h1>}>
 					<div className="list-container">
-						{store.movies.map((movie, index) => (
-							<CardMovie movie={movie} key={index} />
-						))}
-						<CustomPagination pages_total={store.total_pages} page_current={store.current_page} setPage={(page: number) => store.setCurrentPage(page)} />
+						{
+							(store.getData.items)
+							&& store.getData.items.map((movie, index) => (
+								<CardMovie movie={movie} key={index} />
+							))
+						}
+						<CustomPagination pages_total={store.total_pages} page_current={store.getData.page} setPage={(page: number) => store.handleChangePage(page)} />
 					</div>
 				</Fetchable>
 			</div>

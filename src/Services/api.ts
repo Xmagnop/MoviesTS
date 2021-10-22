@@ -11,9 +11,14 @@ class API {
 		});
 	}
 
-	public getMovies = async(page: number): Promise<types.MoviesList> => {
+	public getMovies = async(page: number): Promise<types.Movie[]> => {
 		const response = await this.base.get<types.MoviesList>(`/movie/popular?api_key=05219aef37ad48f79afaed988d4298e6&language=en-US&page=${page}`);
-		return response.data;
+		return response.data.results;
+	};
+
+	public getTotalPages = async(): Promise<number> => {
+		const response = await this.base.get<types.MoviesList>("/movie/popular?api_key=05219aef37ad48f79afaed988d4298e6&language=en-US&page=1");
+		return response.data.total_pages;
 	};
 
 	public getFilteredMovies = async(title: string, page: number): Promise<types.MoviesList> => {
