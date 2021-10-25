@@ -2,12 +2,12 @@ import React from "react";
 import { observer } from "mobx-react-lite";
 import { Flex, Button } from "@chakra-ui/react";
 
-interface Iprops {
+interface IProps {
 	goNextPage: () => void;
 	goPreviousPage: () => void;
 }
 
-const CustomPagination: React.FC<Iprops> = (props) =>
+const CustomPagination: React.FC<IProps> = (props) =>
 
 	(
 		<Flex direction="row" wrap="nowrap" justifyContent="center" >

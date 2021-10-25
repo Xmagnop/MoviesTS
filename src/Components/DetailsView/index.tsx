@@ -2,68 +2,33 @@ import { observer } from "mobx-react-lite";
 import React from "react";
 import * as types from "../../Services/types";
 import "./index.css";
-
-interface Gprops {
-	genres: types.genre[];
-}
-
-const GenreList: React.FC<Gprops> = (props) => (
-	<div className="details-info">
-		{
-			props.genres.map((genre, index) => (
-				<div className="genre-card" key={index}>{genre.name}</div>
-			))
-		}
-	</div>
-);
-
-interface Dprops {
-	runtime: number;
-	vote_average: number;
-}
-
-const DetailsInfo: React.FC<Dprops> = (props) => (
-	<div className="details-info">
-		<p className="info-content" style={{ color: "white" }}>{props.runtime}min</p>
-		<p className="info-content" style={{ color: "#0077be" }}>{props.vote_average}</p>
-	</div>
-);
-
-interface DCprops {
-	title: string;
-	overview: string;
-	genres: types.genre[];
-	runtime: number;
-	vote_average: number;
-}
-
-const DetailsContent: React.FC<DCprops> = (props) => (
-	<div className="details-content">
-		<h1 style={{ color: "white" }}>{props.title}</h1>
-		<p className="details-overview">{props.overview}</p>
-		<GenreList genres={props.genres} />
-		<DetailsInfo runtime={props.runtime} vote_average={props.vote_average} />
-	</div>
-);
+import { Container, Image, Box, useMediaQuery  } from "@chakra-ui/react";
+import MovieInfo from "../MovieInfo/index";
 
 interface Iprops {
 	movie: types.MovieDetails;
+	video: string;
 }
 
-const DetailsView: React.FC<Iprops> = ({ movie }) => {
+const DetailsView: React.FC<Iprops> = (props) => {
 	const img_500 = "https://image.tmdb.org/t/p/w500";
+	const [isLargerThan767] = useMediaQuery("(min-width: 767px)");
+
 
 	return (
-		<div className="details-container">
-			<img alt="" className="details-poster" src={`${img_500}/${movie.poster_path}`} />
-			<DetailsContent
-				title={movie.title}
-				overview={movie.overview}
-				genres={movie.genres}
-				runtime={movie.runtime}
-				vote_average={movie.vote_average}
-			/>
-		</div>
+		<Container
+			maxW="container.xl"
+			justifyContent="space-around"
+			d="flex"
+			flexDirection={isLargerThan767 ? "row" : "column-reverse"}
+		>
+			<Box>
+				<MovieInfo video={props.video} overview={props.movie.overview} genres={props.movie.genres} grade={props.movie.vote_average} title={props.movie.title} date={props.movie.release_date} />
+			</Box>
+			<Box>
+				<Image src={`${img_500}/${props.movie.poster_path}`} />
+			</Box>
+		</Container>
 	);
 };
 

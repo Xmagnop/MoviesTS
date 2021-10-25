@@ -22,24 +22,24 @@ export interface MoviesList {
 	total_results: number;
 }
 
-export interface genre{
+export interface genre {
 	id: number;
 	name: string;
 }
 
-interface company{
+interface company {
 	id: number;
 	logo_path: string;
 	name: string;
 	origin_country: string;
 }
 
-interface country{
+interface country {
 	iso_3166_1: string;
 	name: string;
 }
 
-interface language{
+interface language {
 	english_name: string;
 	iso_639_1: string;
 	name: string;
@@ -76,4 +76,22 @@ export interface MovieDetails {
 	video: boolean;
 	vote_average: number;
 	vote_count: number;
+}
+
+interface TrailerInfo {
+	iso_639_1: string;
+	iso_3166_1: string;
+	name: string;
+	key: string;
+	site: string;
+	size: number;
+	type: string;
+	official: boolean;
+	published_at: string;
+	id: string;
+}
+
+export interface MovieTrailer {
+	id: string;
+	results: TrailerInfo[];
 }
