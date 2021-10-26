@@ -8,7 +8,7 @@ import Fetchable from "../../Components/Fetchable";
 import "./index.css";
 import DetailsView from "../../Components/DetailsView";
 import { Box } from "@chakra-ui/layout";
-// import { ColorExtractor } from "react-color-extractor";
+import { Palette } from "react-palette";
 
 
 const DetailsPage: React.FC = () => {
@@ -33,14 +33,18 @@ const DetailsPage: React.FC = () => {
 
 	return (
 		<>
-			<Box d="flex" minH="100vh" alignItems="center" bgGradient="linear(to-l, #6d67b6, #000000)" >
-				<Fetchable loadableProps={propsLoadable} errorComponent={<h1>{store.errorMessage}</h1>} hasError={!!store.errorMessage} >
+			<Box minHeight="100vh" bgColor="#0d253f">
+				<Fetchable loadableProps={propsLoadable} errorComponent={<h1>{store.errorMessage}</h1>} hasError={!!store.errorMessage}>
 					{
 						store.modelShelf._model
 							? <>
-								{/* {console.log(store.color)}
-								<ColorExtractor src={`https://image.tmdb.org/t/p/w500/${store.modelShelf.model.poster_path}`} maxColors={1} getColors={(colors: string)=>store.setColors(colors)}/> */}
-								<DetailsView video={store.video} movie={store.modelShelf.model} />
+								<Palette src={`https://image.tmdb.org/t/p/w500/${store.modelShelf.model.poster_path}`} >
+									{({ data }) => (
+										<Box d="flex" minH="100vh" alignItems="center" bgGradient={`radial-gradient( ${data.darkVibrant!}, ${data.darkMuted!})`} >
+											<DetailsView video={store.video} movie={store.modelShelf.model} />
+										</Box>
+									)}
+								</Palette>
 							</>
 							: <h1>pagina não econtrada</h1>
 					}

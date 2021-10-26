@@ -23,10 +23,10 @@ const MovieInfo: React.FC<IProps> = (props) => (
 	>
 		<VStack spacing="25px">
 			<Box d="flex" flexDirection="column" w="100%" justifyContent="flex-start" >
-				<Text fontSize="lg" fontWeight="bold" color="red.700">{props.grade}</Text>
+				<Text bgColor="blackAlpha.300" p={1} alignSelf="self-start" fontSize="lg" fontWeight="bold" color="red.500">{props.grade}</Text>
 				<HStack spacing="15px">
 					<Heading color="whiteAlpha.800">{props.title}</Heading>
-					<Text color="whiteAlpha.800">{props.date}</Text>
+					<Text color="whiteAlpha.800">{props.date.split("-")[0]}</Text>
 				</HStack>
 				<GenreList genres={props.genres} />
 			</Box>

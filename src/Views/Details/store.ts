@@ -24,18 +24,18 @@ export class Store {
 	public setTrailerInfo(trailerInfo: types.MovieTrailer) {
 		this.trailer_info = trailerInfo;
 	}
-	public setColors(colors: string){
+	public setColors(colors: string) {
 		this.color = colors;
 	}
-	public fetchTrailer = async(id: string) => {
+	public fetchTrailer = async (id: string) => {
 		try {
 			const data = await api.getMovieTrailer(id);
 			this.setTrailerInfo(data);
 		} catch (error) {
 			this.setErrorMessage(JSON.stringify(error));
 		} finally {
-			if (this.trailer_info) {
-				this.setVideo(this.trailer_info?.results[0].key);
+			if (this.trailer_info?.results[0]) {
+				this.setVideo(this.trailer_info.results[0].key);
 			} else {
 				this.setVideo("indisponível");
 			}

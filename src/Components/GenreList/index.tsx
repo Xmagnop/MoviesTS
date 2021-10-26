@@ -12,7 +12,7 @@ const GenreList: React.FC<IProps> = (props) => (
 		{
 			props.genres.map((genre, index) => (
 				<Flex key={index}>
-					<Text fontWeight="bold" color="gray.600" >{genre.name}</Text>
+					<Text fontWeight="bold" color="gray.400" >{genre.name}</Text>
 				</Flex>
 			))
 		}
