@@ -4,11 +4,11 @@ import * as types from "../../Services/types";
 import "./index.css";
 import { useHistory } from "react-router";
 
-interface Iprops {
+interface IProps {
 	movie: types.Movie;
 }
 
-const CardMovie: React.FC<Iprops> = ({ movie }) => {
+const CardMovie: React.FC<IProps> = ({ movie }) => {
 	const history = useHistory();
 	const img_300 = "https://image.tmdb.org/t/p/w300";
 

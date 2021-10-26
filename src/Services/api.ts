@@ -26,6 +26,11 @@ class API {
 		return response.data;
 	};
 
+	public getMovieTrailer = async (id: string): Promise<types.MovieTrailer> => {
+		const response = await this.base.get<types.MovieTrailer>(`/movie/${id}/videos?api_key=05219aef37ad48f79afaed988d4298e6&language=en-US`);
+		return response.data;
+	};
+
 }
 
 const api = new API();

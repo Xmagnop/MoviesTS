@@ -35,8 +35,8 @@ const HomePage: React.FC = () => {
 								<CardMovie movie={movie} key={index} />
 							))
 						}
-						<CustomPagination pages_total={store.total_pages} page_current={store.getData.page} setPage={(page: number) => store.getData.fetchPage(page)} />
 					</div>
+					<CustomPagination goNextPage={() => store.getData.nextPage()} goPreviousPage={() => store.getData.previousPage()} />
 				</Fetchable>
 			</div>
 		</>

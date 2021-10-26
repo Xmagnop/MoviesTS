@@ -1,26 +1,21 @@
-import React, { ChangeEvent } from "react";
+import React from "react";
 import { observer } from "mobx-react-lite";
-import "./index.css";
-import { Pagination } from "@mui/material";
+import { Flex, Button } from "@chakra-ui/react";
 
-interface Iprops {
-	pages_total: number;
-	page_current: number;
-	setPage: (page: number) => void;
+interface IProps {
+	goNextPage: () => void;
+	goPreviousPage: () => void;
 }
 
-const CustomPagination: React.FC<Iprops> = (props) =>{
+const CustomPagination: React.FC<IProps> = (props) =>
 
-	const handleChangePage = (page: number) => {
-		props.setPage(page);
-	};
+	(
+		<Flex direction="row" wrap="nowrap" justifyContent="center" >
+			<Button onClick={()=>props.goPreviousPage()} m={5} size="lg" fontSize="lg" >Back</Button>
+			<Button onClick={()=>props.goNextPage()} m={5} size="lg" fontSize="lg" >Next</Button>
+		</Flex>
+	)
 
-	return(
-		<div className="pagination_container">
-			<Pagination hideNextButton={false} hidePrevButton={false} count={props.pages_total} page={props.page_current} shape="rounded" color="secondary" size="small" onChange={(event: ChangeEvent<unknown>, page: number) => handleChangePage(page)} />
-		</div>
-	);
-
-};
+;
 
 export default observer(CustomPagination);

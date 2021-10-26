@@ -5,8 +5,10 @@ import { Store } from "./store";
 import ContainerLoading from "../../Components/Loading/loading";
 import { ILoadableProps } from "../../Components/Loading/loadable";
 import Fetchable from "../../Components/Fetchable";
-import Header from "../../Components/Header/index";
-import "./index.css";
+import DetailsView from "../../Components/DetailsView";
+import { Box } from "@chakra-ui/layout";
+import { Palette } from "react-palette";
+
 
 const DetailsPage: React.FC = () => {
 	interface DetailsParams {
@@ -15,7 +17,13 @@ const DetailsPage: React.FC = () => {
 
 	const { id } = useParams<DetailsParams>();
 	const store = useLocalObservable(() => new Store(id));
-	const img_500 = "https://image.tmdb.org/t/p/w500";
+
+	React.useEffect(
+		() => {
+			store.fetchTrailer(id);
+		},
+		[store],
+	);
 
 	const propsLoadable: ILoadableProps = {
 		isLoading: !!store.modelShelf?.loader.isLoading,
@@ -24,32 +32,23 @@ const DetailsPage: React.FC = () => {
 
 	return (
 		<>
-			<div className="page-details">
-				<Header />
-				<Fetchable loadableProps={propsLoadable} errorComponent={<h1>{store.errorMessage}</h1>} hasError={!!store.errorMessage} >
+			<Box minHeight="100vh" bgColor="#0d253f">
+				<Fetchable loadableProps={propsLoadable} errorComponent={<h1>{store.errorMessage}</h1>} hasError={!!store.errorMessage}>
 					{
 						store.modelShelf._model
-							? <div className="details-container">
-								<img alt="" className="details-poster" src={`${img_500}/${store.modelShelf.model.poster_path}`} />
-								<div className="details-content">
-									<h1 style={{ color: "white" }}>{store.modelShelf.model.title}</h1>
-									<p className="details-overview">{store.modelShelf.model.overview}</p>
-									<div className="details-info">
-										{store.modelShelf.model.genres.map((genre, index) => (
-											<div className="genre-card" key={index}>{genre.name}</div>
-										))}
-									</div>
-									<div className="details-info">
-										<p className="info-content" style={{ color: "white" }}>{store.modelShelf.model.runtime}min</p>
-										<p className="info-content" style={{ color: "#0077be" }}>{store.modelShelf.model.vote_average}</p>
-									</div>
-								</div>
-							</div>
-							:
-							<h1>não encontrado</h1>
+							? <>
+								<Palette src={`https://image.tmdb.org/t/p/w500/${store.modelShelf.model.poster_path}`} >
+									{({ data }) => (
+										<Box d="flex" minH="100vh" alignItems="center" bgGradient={`radial-gradient( ${data.darkVibrant!}, ${data.darkMuted!})`} >
+											<DetailsView video={store.video} movie={store.modelShelf.model} />
+										</Box>
+									)}
+								</Palette>
+							</>
+							: <h1>pagina não econtrada</h1>
 					}
 				</Fetchable>
-			</div>
+			</Box>
 		</>
 	);
 
