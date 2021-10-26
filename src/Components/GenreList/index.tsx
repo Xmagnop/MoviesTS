@@ -1,6 +1,6 @@
 import React from "react";
 import * as types from "../../Services/types";
-import { HStack, Flex, Text } from "@chakra-ui/react";
+import { HStack, Text } from "@chakra-ui/react";
 import { observer } from "mobx-react-lite";
 
 interface IProps {
@@ -8,12 +8,10 @@ interface IProps {
 }
 
 const GenreList: React.FC<IProps> = (props) => (
-	<HStack spacing="15px" flexFlow="row" alignItems="center">
+	<HStack d="flex" wrap="wrap" spacing={3}>
 		{
 			props.genres.map((genre, index) => (
-				<Flex key={index}>
-					<Text fontWeight="bold" color="gray.400" >{genre.name}</Text>
-				</Flex>
+				<Text fontWeight="bold" color="gray.400" key={index} >{genre.name}</Text>
 			))
 		}
 	</HStack>

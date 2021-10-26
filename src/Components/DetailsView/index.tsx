@@ -1,7 +1,6 @@
 import { observer } from "mobx-react-lite";
 import React from "react";
 import * as types from "../../Services/types";
-import "./index.css";
 import { Container, Image, Box, useMediaQuery  } from "@chakra-ui/react";
 import MovieInfo from "../MovieInfo/index";
 

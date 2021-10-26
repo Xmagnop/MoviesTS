@@ -1,7 +1,0 @@
-.page-details{
-    display: flex;
-    min-width: 100vw;
-    min-height: 100vh;
-    flex-flow: column;
-    background-color: #0d253f;
-}

@@ -5,7 +5,6 @@ import { Store } from "./store";
 import ContainerLoading from "../../Components/Loading/loading";
 import { ILoadableProps } from "../../Components/Loading/loadable";
 import Fetchable from "../../Components/Fetchable";
-import "./index.css";
 import DetailsView from "../../Components/DetailsView";
 import { Box } from "@chakra-ui/layout";
 import { Palette } from "react-palette";
