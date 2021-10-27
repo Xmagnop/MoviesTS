@@ -1,11 +1,11 @@
 import React from "react";
 import Logo from "../../Images/logo-movies.png";
-import "./index.css";
 import { observer } from "mobx-react-lite";
 import { Flex, Image, Input } from "@chakra-ui/react";
 
 interface Iprops {
 	setFilterTitle?: (title: string) => void;
+	doFilter?: () => void;
 }
 
 const Header: React.FC<Iprops> = (props) => {
@@ -21,24 +21,30 @@ const Header: React.FC<Iprops> = (props) => {
 				alignItems="center"
 				justifyContent="space-around"
 				p={5}
+				direction={{ base: "column", md: "row" }}
 			>
-				<Image src={Logo} />
+				<Image
+					marginBottom={{ base:"5", md:"0" }}
+					src={Logo}
+				/>
 				{
 					props.setFilterTitle
 					&& <Input
 						w="sm"
+						maxW="65vw"
 						borderRadius="2xl"
 						bgColor="whiteAlpha.900"
 						fontWeight="semibold"
+						onKeyPress={(e)=>{
+							if(props.doFilter && e.key === "Enter"){
+								props.doFilter();
+							}
+						}}
 						onChange={handleChangeFilter}
 						placeholder="Pesquisar"
 					/>
 				}
 			</Flex>
-			{/* <div className="header" >
-				<img alt="logo" src={Logo} className="Logo-img" onClick={()=>history.push("/home")} />
-				{props.setFilterTitle && <input className="search-input" onChange={handleChangeFilter} placeholder="Pesquisar" />}
-			</div> */}
 		</>
 	);
 };

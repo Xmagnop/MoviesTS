@@ -1,8 +1,6 @@
 import { observer, useLocalObservable } from "mobx-react-lite";
 import React from "react";
 import Header from "../../Components/Header/index";
-import "./index.css";
-// import CardMovie from "../../Components/CardMovie/index";
 import { Store } from "./store";
 import CustomPagination from "../../Components/Pagination";
 import ContainerLoading from "../../Components/Loading/loading";
@@ -28,26 +26,13 @@ const HomePage: React.FC = () => {
 
 	return (
 		<>
-			<Box size="full" bgColor="#0d253f">
-				<Header setFilterTitle={(title: string) => store.setTitleFilter(title)} />
+			<Box w="100%" bgColor="#0d253f">
+				<Header setFilterTitle={(title: string) => store.setTitleFilter(title)} doFilter={()=> store.doFilter()} />
 				<Fetchable loadableProps={propsLoader} errorComponent={<h1>{store.errorMessage}</h1>}>
-					<HomeView movie={store.getData.items}/>
+					<HomeView movie={store.getData.items} frontMovie={store.getData.items[0]}/>
 					<CustomPagination goNextPage={() => store.getData.nextPage()} goPreviousPage={() => store.getData.previousPage()} />
 				</Fetchable>
 			</Box>
-			{/* <div className="page-home" >
-				<Header setFilterTitle={(title: string) => store.setTitleFilter(title)} />
-				<Fetchable loadableProps={propsLoader} errorComponent={<h1>{store.errorMessage}</h1>}>
-					<div className="list-container">
-						{
-							store.getData.items.map((movie, index) => (
-								<CardMovie movie={movie} key={index} />
-							))
-						}
-					</div>
-					<CustomPagination goNextPage={() => store.getData.nextPage()} goPreviousPage={() => store.getData.previousPage()} />
-				</Fetchable>
-			</div> */}
 		</>
 	);
 };
